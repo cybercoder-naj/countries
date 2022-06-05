@@ -1,14 +1,34 @@
+<script lang="ts" setup>
+interface CardProps {
+  name: string
+  population: number
+  region: string
+  capital?: string[]
+  svgUrl: string
+}
+
+const props = defineProps<CardProps>()
+</script>
+
 <template>
   <div class="card mx-4 mb-5">
-    <img src="https://cdn.britannica.com/97/1597-004-05816F4E/Flag-India.jpg" alt="India" />
+    <img :src="svgUrl" :alt="name" />
 
     <div class="country-content ms-3 ms-lg-5 my-4">
-      <h3>India</h3>
+      <h3>{{ name }}</h3>
 
-      <p class="mt-4 mb-1"><strong>Population:</strong> 1.5 Billion</p>
-      <p class="mb-1"><strong>Region:</strong> Asia</p>
-      <p><strong>Capital:</strong> New Delhi</p>
+      <p class="mt-4 mb-1"><strong>Population:</strong> {{ population }}</p>
+      <p class="mb-1"><strong>Region:</strong> {{region}}</p>
+      <p><strong>Capital:</strong> {{capital == null ? "None" : capital[0] }}</p>
     </div>
 
   </div>
 </template>
+
+<style scoped>
+img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: contain;
+}
+</style>
