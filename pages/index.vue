@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+
+</script>
+
 <template>
   <div class="container-fluid px-4 mt-5">
     <div class="bars d-flex justify-content-between px-4">
