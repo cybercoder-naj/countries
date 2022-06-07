@@ -2,10 +2,12 @@
   <div class="container-fluid px-4 mt-5">
     <div class="row">
       <div class="col-12">
-        <div class="ms-4 d-inline-flex px-3 py-2 bg-white white-pill justify-content-center align-items-center">
-          <i class="fa fa-arrow-left icon me-2"></i>
-          Back
-        </div>
+        <NuxtLink to="/">
+          <div class="ms-4 d-inline-flex px-3 py-2 bg-white white-pill justify-content-center align-items-center">
+            <i class="fa fa-arrow-left icon me-2"></i>
+            Back
+          </div>
+        </NuxtLink>
       </div>
     </div>
     <div class="row mt-4">
@@ -52,5 +54,10 @@
 
 img {
   width: 80%;
+}
+
+a {
+  all: unset;
+  cursor: pointer;
 }
 </style>
