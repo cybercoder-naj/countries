@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup>
 
   const {data: countries} = useFetch('https://restcountries.com/v3.1/all')
 </script>
