@@ -14,7 +14,7 @@ const props = defineProps<CardProps>()
   <div class="card mx-4 mb-5">
     <img :src="svgUrl" :alt="name" />
 
-    <div class="country-content ms-3 ms-lg-5 my-4">
+    <div class="country-content ms-4 ms-md-3 my-4 pe-2">
       <h3>{{ name }}</h3>
 
       <p class="mt-4 mb-1"><strong>Population:</strong> {{ population }}</p>
