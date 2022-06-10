@@ -1,3 +1,9 @@
+<script  setup>
+const route = useRoute()
+
+const countryName = route.params.name
+</script>
+
 <template>
   <div class="container-fluid px-4 mt-5">
     <div class="row">
@@ -12,11 +18,11 @@
     </div>
     <div class="row mt-4">
       <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
-        <img src="https://cdn.britannica.com/97/1597-004-05816F4E/Flag-India.jpg" alt="India" class="ms-4" />
+        <img src="https://cdn.britannica.com/97/1597-004-05816F4E/Flag-India.jpg" :alt="countryName" class="ms-4" />
       </div>
       <div class="col-12 col-lg-6 row">
         <div class="col-12 mb-0">
-          <h2>India</h2>
+          <h2>{{ countryName }}</h2>
         </div>
         <div class="col-12 col-lg-6 d-flex flex-column">
           <div class="mt-4">
