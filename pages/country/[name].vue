@@ -1,17 +1,19 @@
 <script setup>
 const route = useRoute()
 
-// const nativeName = ref("")
+const borderNames = ref([])
 
 const countryName = route.params.name
+
 const { data } = await useAsyncData(countryName, async () => {
   const response = (await $fetch(`https://restcountries.com/v3.1/name/${countryName}`))[0]
 
-  const borders = []
-  response.borders.forEach(border => {
-    // get borders
-  })
+  response.borders.forEach(async border => {
+    const borderRes = (await $fetch(`https://restcountries.com/v3/alpha/${border}`))[0]
 
+    borderNames.value = [...borderNames.value, borderRes.name.common]
+    console.log(borderNames.value)
+  })
   return response
 })
 
@@ -59,7 +61,7 @@ const topLevelDomains = computed(() => data.value.tld.join(', '))
     </div>
     <div class="row mt-4">
       <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
-        <img src="https://cdn.britannica.com/97/1597-004-05816F4E/Flag-India.jpg" :alt="countryName" class="ms-4" />
+        <img :src="data.flags.svg" :alt="countryName" class="ms-4" />
       </div>
       <div class="col-12 col-lg-6 row">
         <div class="col-12 mb-0">
@@ -84,9 +86,10 @@ const topLevelDomains = computed(() => data.value.tld.join(', '))
         <div class="col-12 mt-5">
           <p>
             <strong>Border Countries: </strong>
-            <span class="white-pill px-3 py-2 mx-3">Pakistan</span>
-            <span class="white-pill px-3 py-2 ">Nepal</span>
-            <span class="white-pill px-3 py-2 ">Bhutan</span>
+            <span v-for="border in borderNames" :key="border" class="white-pill px-3 py-2 mx-3">{{ border }}</span>
+            <!-- <span class="white-pill px-3 py-2 mx-3">Pakistan</span>
+            <span class="white-pill px-3 py-2 mx-3">Nepal</span>
+            <span class="white-pill px-3 py-2 mx-3">Bhutan</span> -->
           </p>
         </div>
       </div>
