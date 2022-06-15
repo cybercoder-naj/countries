@@ -12,9 +12,9 @@
     </div>
     <div class="row mt-4">
       <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
-        <img src="https://cdn.britannica.com/97/1597-004-05816F4E/Flag-India.jpg" alt="India" class="ms-4" />
+        <img src="https://cdn.britannica.com/97/1597-004-05816F4E/Flag-India.jpg" alt="India" class="ms-md-4" />
       </div>
-      <div class="col-12 col-lg-6 row">
+      <div class="col-12 col-lg-6 row px-4 px-lg-0 mt-3 mt-lg-0">
         <div class="col-12 mb-0">
           <h2>India</h2>
         </div>
@@ -53,7 +53,13 @@
 }
 
 img {
-  width: 80%;
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  img {
+    width: 80%;
+  }
 }
 
 a {
