@@ -1,26 +1,27 @@
 <script setup>
 const route = useRoute()
-
-const borderNames = ref([])
-
 const countryName = route.params.name
 
 const { data } = await useAsyncData(countryName, async () => {
   const response = (await $fetch(`https://restcountries.com/v3.1/name/${countryName}`))[0]
 
-  response.borders.forEach(async border => {
+  const borders = []
+  for (let i = 0; i < response.borders.length; i++) {
+    const border = response.borders[i]
     const borderRes = (await $fetch(`https://restcountries.com/v3/alpha/${border}`))[0]
+    borders.push(borderRes.name.common)
+  }
 
-    borderNames.value = [...borderNames.value, borderRes.name.common]
-    console.log(borderNames.value)
-  })
-  return response
+  return { 
+    country: response,
+    borders
+  }
 })
 
 const nativeName = computed(() => {
   let name;
-  Object.keys(data.value.name.nativeName).forEach(lang => {
-    name = data.value.name.nativeName[lang].common
+  Object.keys(data.value.country.name.nativeName).forEach(lang => {
+    name = data.value.country.name.nativeName[lang].common
     return
   })
   return name
@@ -28,8 +29,8 @@ const nativeName = computed(() => {
 
 const currencies = computed(() => {
   const currencies = [];
-  Object.keys(data.value.currencies).forEach(place => {
-    currencies.push(data.value.currencies[place].name)
+  Object.keys(data.value.country.currencies).forEach(place => {
+    currencies.push(data.value.country.currencies[place].name)
     return
   })
   return currencies.join(', ')
@@ -37,14 +38,14 @@ const currencies = computed(() => {
 
 const languages = computed(() => {
   const langs = [];
-  Object.keys(data.value.languages).forEach(place => {
-    langs.push(data.value.languages[place])
+  Object.keys(data.value.country.languages).forEach(place => {
+    langs.push(data.value.country.languages[place])
     return
   })
   return langs.join(', ')
 })
 
-const topLevelDomains = computed(() => data.value.tld.join(', '))
+const topLevelDomains = computed(() => data.value.country.tld.join(', '))
 </script>
 
 <template>
@@ -61,7 +62,7 @@ const topLevelDomains = computed(() => data.value.tld.join(', '))
     </div>
     <div class="row mt-4">
       <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
-        <img :src="data.flags.svg" :alt="countryName" class="ms-4" />
+        <img :src="data.country.flags.svg" :alt="countryName" class="ms-4" />
       </div>
       <div class="col-12 col-lg-6 row">
         <div class="col-12 mb-0">
@@ -70,10 +71,10 @@ const topLevelDomains = computed(() => data.value.tld.join(', '))
         <div class="col-12 col-lg-6 d-flex flex-column">
           <div class="mt-4">
             <p class="my-1"><strong>Native Name:</strong> {{ nativeName }}</p>
-            <p class="my-1"><strong>Population:</strong> {{ data.population }}</p>
-            <p class="my-1"><strong>Region:</strong> {{ data.region }}</p>
-            <p class="my-1"><strong>Sub Region:</strong> {{ data.subregion }}</p>
-            <p class="my-1"><strong>Capital:</strong> {{ data.capital[0] }}</p>
+            <p class="my-1"><strong>Population:</strong> {{ data.country.population }}</p>
+            <p class="my-1"><strong>Region:</strong> {{ data.country.region }}</p>
+            <p class="my-1"><strong>Sub Region:</strong> {{ data.country.subregion }}</p>
+            <p class="my-1"><strong>Capital:</strong> {{ data.country.capital[0] }}</p>
           </div>
         </div>
         <div class="col-12 col-lg-6 d-flex flex-column">
@@ -83,13 +84,10 @@ const topLevelDomains = computed(() => data.value.tld.join(', '))
             <p class="my-1"><strong>Languages:</strong> {{ languages }}</p>
           </div>
         </div>
-        <div class="col-12 mt-5">
+        <div class="col-12 col-lg-10 mt-5">
           <p>
             <strong>Border Countries: </strong>
-            <span v-for="border in borderNames" :key="border" class="white-pill px-3 py-2 mx-3">{{ border }}</span>
-            <!-- <span class="white-pill px-3 py-2 mx-3">Pakistan</span>
-            <span class="white-pill px-3 py-2 mx-3">Nepal</span>
-            <span class="white-pill px-3 py-2 mx-3">Bhutan</span> -->
+            <p v-for="border in data.borders" :key="border" class="white-pill px-3 py-2 m-2">{{ border }}</p>
           </p>
         </div>
       </div>
@@ -100,6 +98,10 @@ const topLevelDomains = computed(() => data.value.tld.join(', '))
 <style scoped>
 .white-pill {
   box-shadow: 0 0 5px 5px #eeeeee;
+}
+
+p.white-pill {
+  display: inline-flex;
 }
 
 img {
