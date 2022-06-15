@@ -1,7 +1,48 @@
-<script  setup>
+<script setup>
 const route = useRoute()
 
+// const nativeName = ref("")
+
 const countryName = route.params.name
+const { data } = await useAsyncData(countryName, async () => {
+  const response = (await $fetch(`https://restcountries.com/v3.1/name/${countryName}`))[0]
+
+  const borders = []
+  response.borders.forEach(border => {
+    // get borders
+  })
+
+  return response
+})
+
+const nativeName = computed(() => {
+  let name;
+  Object.keys(data.value.name.nativeName).forEach(lang => {
+    name = data.value.name.nativeName[lang].common
+    return
+  })
+  return name
+})
+
+const currencies = computed(() => {
+  const currencies = [];
+  Object.keys(data.value.currencies).forEach(place => {
+    currencies.push(data.value.currencies[place].name)
+    return
+  })
+  return currencies.join(', ')
+})
+
+const languages = computed(() => {
+  const langs = [];
+  Object.keys(data.value.languages).forEach(place => {
+    langs.push(data.value.languages[place])
+    return
+  })
+  return langs.join(', ')
+})
+
+const topLevelDomains = computed(() => data.value.tld.join(', '))
 </script>
 
 <template>
@@ -26,18 +67,18 @@ const countryName = route.params.name
         </div>
         <div class="col-12 col-lg-6 d-flex flex-column">
           <div class="mt-4">
-            <p class="my-1"><strong>Native Name:</strong> Bharat</p>
-            <p class="my-1"><strong>Population:</strong> 1.5 Billion</p>
-            <p class="my-1"><strong>Region:</strong> Asia</p>
-            <p class="my-1"><strong>Sub Region:</strong> Indian Subcontinent</p>
-            <p class="my-1"><strong>Capital:</strong> New Delhi</p>
+            <p class="my-1"><strong>Native Name:</strong> {{ nativeName }}</p>
+            <p class="my-1"><strong>Population:</strong> {{ data.population }}</p>
+            <p class="my-1"><strong>Region:</strong> {{ data.region }}</p>
+            <p class="my-1"><strong>Sub Region:</strong> {{ data.subregion }}</p>
+            <p class="my-1"><strong>Capital:</strong> {{ data.capital[0] }}</p>
           </div>
         </div>
         <div class="col-12 col-lg-6 d-flex flex-column">
           <div class="mt-4">
-            <p class="my-1"><strong>Top Level Domain: </strong> .in</p>
-            <p class="my-1"><strong>Currencies:</strong> Rupee</p>
-            <p class="my-1"><strong>Languages:</strong> English, Hindi</p>
+            <p class="my-1"><strong>Top Level Domain: </strong> {{ topLevelDomains }}</p>
+            <p class="my-1"><strong>Currencies:</strong> {{ currencies }}</p>
+            <p class="my-1"><strong>Languages:</strong> {{ languages }}</p>
           </div>
         </div>
         <div class="col-12 mt-5">
