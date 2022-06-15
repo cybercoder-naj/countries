@@ -62,9 +62,9 @@ const topLevelDomains = computed(() => data.value.country.tld.join(', '))
     </div>
     <div class="row mt-4">
       <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
-        <img :src="data.country.flags.svg" :alt="countryName" class="ms-4" />
+        <img :src="data.country.flags.svg" :alt="countryName" class="ms-md-4" />
       </div>
-      <div class="col-12 col-lg-6 row">
+      <div class="col-12 col-lg-6 row px-4 px-lg-0 mt-3 mt-lg-0">
         <div class="col-12 mb-0">
           <h2>{{ countryName }}</h2>
         </div>
@@ -105,7 +105,13 @@ p.white-pill {
 }
 
 img {
-  width: 80%;
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  img {
+    width: 80%;
+  }
 }
 
 a {
