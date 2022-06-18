@@ -12,15 +12,6 @@
       </div>
     </NuxtLink>
   </div>
-</template>
 
 <style scoped>
 a {
-  all: unset;
-  cursor: pointer;
-}
-
-a:hover h3 {
-  text-decoration: underline;
-}
-</style>
