@@ -5,6 +5,7 @@ interface CardProps {
   region: string
   capital?: string[]
   svgUrl: string
+  code: string
 }
 
 const props = defineProps<CardProps>()
@@ -15,7 +16,7 @@ const props = defineProps<CardProps>()
     <img :src="svgUrl" :alt="name" />
 
 
-    <NuxtLink :to="`/country/${name}`">
+    <NuxtLink :to="`/country/${code}`">
       <div class="country-content ms-4 ms-md-3 my-4 pe-2">
         <h3>{{ name }}</h3>
 

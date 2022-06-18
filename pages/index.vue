@@ -17,6 +17,7 @@
           :region="country.region" 
           :capital="country.capital"
           :svgUrl="country.flags.svg"
+          :code="country.cca2"
         />
       </div>
     </div>

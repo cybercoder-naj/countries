@@ -1,9 +1,9 @@
 <script setup>
 const route = useRoute()
-const countryName = route.params.name
+const code = route.params.name
 
-const { data } = await useAsyncData(countryName, async () => {
-  const response = (await $fetch(`https://restcountries.com/v3.1/name/${countryName}`))[0]
+const { data } = await useAsyncData(code, async () => {
+  const response = (await $fetch(`https://restcountries.com/v3.1/alpha/${code}`))[0]
 
   const borders = []
   for (let i = 0; i < response.borders.length; i++) {
@@ -62,11 +62,11 @@ const topLevelDomains = computed(() => data.value.country.tld.join(', '))
     </div>
     <div class="row mt-4">
       <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
-        <img :src="data.country.flags.svg" :alt="countryName" class="ms-md-4" />
+        <img :src="data.country.flags.svg" :alt="data.country.name.common" class="ms-md-4" />
       </div>
       <div class="col-12 col-lg-6 row px-4 px-lg-0 mt-3 mt-lg-0">
         <div class="col-12 mb-0">
-          <h2>{{ countryName }}</h2>
+          <h2>{{ data.country.name.common }}</h2>
         </div>
         <div class="col-12 col-lg-6 d-flex flex-column">
           <div class="mt-4">
