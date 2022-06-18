@@ -12,7 +12,7 @@ const selected = ref("")
 
 const selectText = computed(() => {
   return (selected.value.length) ?
-    selected.value : 
+    selected.value :
     "Filter by Region"
 })
 
@@ -29,15 +29,11 @@ function handleSelect(region: string) {
 <template>
   <div class="select-container">
     <div class="select-head" v-on:click="handleClick">
-      {{selectText}} <i class="fa fa-caret-down icon"></i>
+      {{ selectText }} <i class="fa fa-caret-down icon"></i>
     </div>
     <div class="select-dropdown" v-bind:class="active ? 'active' : null">
-      <div 
-        v-for="country in countries" 
-        :key="country" 
-        class="select-item" 
-        @click="() => handleSelect(country)">
-          {{country}}
+      <div v-for="country in countries" :key="country" class="select-item" @click="() => handleSelect(country)">
+        {{ country }}
       </div>
     </div>
   </div>
@@ -48,7 +44,6 @@ function handleSelect(region: string) {
   background-color: white;
   display: inline-flex;
   flex-direction: column;
-  padding: 8px 10px;
   cursor: pointer;
   position: relative;
   min-width: 160px;
@@ -57,6 +52,7 @@ function handleSelect(region: string) {
 .select-head {
   display: inline-flex;
   align-items: center;
+  margin: 8px 10px;
   justify-content: space-between;
 }
 
@@ -66,6 +62,11 @@ function handleSelect(region: string) {
 
 .select-dropdown {
   display: none;
+  position: absolute;
+  width: 100%;
+  top: 110%;
+  border: 1px solid black;
+  z-index: 100;
   flex-direction: column;
   text-align: center;
   font-size: 1.1rem;
@@ -79,7 +80,7 @@ function handleSelect(region: string) {
 .select-dropdown .select-item {
   display: inline-flex;
   width: 100%;
-  padding: 8px 0;
+  padding: 8px 12px;
 }
 
 .select-dropdown .select-item:hover {
