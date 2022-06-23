@@ -18,6 +18,10 @@ const { data } = await useAsyncData(code, async () => {
   }
 })
 
+useHead({
+  title: `Countries | ${data.value.country.name.common}`
+})
+
 const nativeName = computed(() => {
   let name;
   Object.keys(data.value.country.name.nativeName).forEach(lang => {
