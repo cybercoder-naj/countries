@@ -17,6 +17,10 @@ const filteredCountries = computed(() => {
       (!filter.value.length || country.region === filter.value)
   })
 })
+
+useHead({
+  title: 'Countries'
+})
 </script>
 
 <template>
