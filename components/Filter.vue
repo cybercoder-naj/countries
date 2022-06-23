@@ -1,9 +1,10 @@
 <script lang="ts" setup>
 const {isDarkTheme} = useDarkTheme()
+const emit = defineEmits(['filter'])
 
 const countries = [
   'Africa',
-  'America',
+  'Americas',
   'Asia',
   'Europe',
   'Oceania'
@@ -36,6 +37,7 @@ function handleClick() {
 
 function handleSelect(region: string) {
   selected.value = region
+  emit('filter', region)
   handleClick()
 }
 </script>

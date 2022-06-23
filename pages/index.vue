@@ -1,14 +1,20 @@
 <script setup>
 const search = ref("")
+const filter = ref("")
 const { data: countries } = await useFetch('https://restcountries.com/v3.1/all')
 
 function handleSearch(e) {
   search.value = e
 }
 
+function handleFilter(e) {
+  filter.value = e
+}
+
 const filteredCountries = computed(() => {
   return countries.value.filter(country => {
-    return country.name.common.toLowerCase().includes(search.value.toLowerCase())
+    return country.name.common.toLowerCase().includes(search.value.toLowerCase()) &&
+      (!filter.value.length || country.region === filter.value)
   })
 })
 </script>
@@ -17,7 +23,7 @@ const filteredCountries = computed(() => {
   <div class="container-fluid px-4 mt-5">
     <div class="bars d-flex justify-content-between px-4">
       <Search @search="handleSearch" />
-      <Filter />
+      <Filter @filter="handleFilter" />
     </div>
     <div class="row mt-4">
       <div v-for="country in filteredCountries" class="col-12 col-md-6 col-lg-3" :key="country.name.common">
