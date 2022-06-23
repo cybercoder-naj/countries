@@ -1,6 +1,10 @@
 <script setup>
 
-  const {data: countries} = useFetch('https://restcountries.com/v3.1/all')
+const { data: countries } = useFetch('https://restcountries.com/v3.1/all')
+
+useHead({
+  title: 'Countries'
+})
 </script>
 
 <template>
@@ -11,14 +15,8 @@
     </div>
     <div class="row mt-4">
       <div v-for="country in countries" class="col-12 col-md-6 col-lg-3" :key="country.name.common">
-        <CountryCard 
-          :name="country.name.common" 
-          :population="country.population" 
-          :region="country.region" 
-          :capital="country.capital"
-          :svgUrl="country.flags.svg"
-          :code="country.cca2"
-        />
+        <CountryCard :name="country.name.common" :population="country.population" :region="country.region"
+          :capital="country.capital" :svgUrl="country.flags.svg" :code="country.cca2" />
       </div>
     </div>
   </div>
