@@ -1,5 +1,5 @@
 const useDarkTheme = () => {
-  const isDarkTheme = useState<boolean>("darkTheme", () => false)
+  const isDarkTheme = useState<boolean>("darkTheme", () => true)
 
   const toggleTheme = () => {
     isDarkTheme.value = !isDarkTheme.value

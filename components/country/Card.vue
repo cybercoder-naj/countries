@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+const { isDarkTheme } = useDarkTheme()
+
 interface CardProps {
   name: string
   population: number
@@ -12,7 +14,7 @@ const props = defineProps<CardProps>()
 </script>
 
 <template>
-  <div class="card mx-4 mb-5">
+  <div class="card mx-4 mb-5" :class="isDarkTheme ? 'dark-theme' : null">
     <img :src="svgUrl" :alt="name" />
 
 
@@ -33,6 +35,11 @@ img {
   width: 100%;
   aspect-ratio: 16/9;
   object-fit: contain;
+}
+
+.card.dark-theme {
+  background: hsl(209, 23%, 22%);
+  color: white;
 }
 
 a {

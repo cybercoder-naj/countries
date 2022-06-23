@@ -1,4 +1,6 @@
 <script setup>
+const {isDarkTheme} = useDarkTheme()
+
 const route = useRoute()
 const code = route.params.name
 
@@ -53,7 +55,7 @@ const topLevelDomains = computed(() => data.value.country.tld.join(', '))
     <div class="row">
       <div class="col-12">
         <NuxtLink to="/">
-          <div class="ms-4 d-inline-flex px-3 py-2 bg-white white-pill justify-content-center align-items-center">
+          <div class="ms-4 d-inline-flex px-3 py-2 white-pill justify-content-center align-items-center" :class="isDarkTheme ? 'dark-theme' : null">
             <i class="fa fa-arrow-left icon me-2"></i>
             Back
           </div>
@@ -64,7 +66,7 @@ const topLevelDomains = computed(() => data.value.country.tld.join(', '))
       <div class="col-12 col-lg-6 d-flex justify-content-center align-items-center">
         <img :src="data.country.flags.svg" :alt="data.country.name.common" class="ms-md-4" />
       </div>
-      <div class="col-12 col-lg-6 row px-4 px-lg-0 mt-3 mt-lg-0">
+      <div class="col-12 col-lg-6 row px-4 px-lg-0 mt-3 mt-lg-0 text-area" :class="isDarkTheme ? 'dark-theme' : null">
         <div class="col-12 mb-0">
           <h2>{{ data.country.name.common }}</h2>
         </div>
@@ -87,7 +89,7 @@ const topLevelDomains = computed(() => data.value.country.tld.join(', '))
         <div class="col-12 col-lg-10 mt-5">
           <p>
             <strong>Border Countries: </strong>
-            <p v-for="border in data.borders" :key="border" class="white-pill px-3 py-2 m-2">{{ border }}</p>
+            <p v-for="border in data.borders" :key="border" class="white-pill px-3 py-2 m-2" :class="isDarkTheme ? 'dark-theme' : null">{{ border }}</p>
           </p>
         </div>
       </div>
@@ -98,6 +100,16 @@ const topLevelDomains = computed(() => data.value.country.tld.join(', '))
 <style scoped>
 .white-pill {
   box-shadow: 0 0 5px 5px #eeeeee;
+}
+
+.white-pill.dark-theme {
+  background-color: hsl(209, 23%, 22%);
+  color: white;
+  box-shadow: 0 0 5px 5px hsl(209, 23%, 15%);
+}
+
+.text-area.dark-theme {
+  color: white;
 }
 
 p.white-pill {

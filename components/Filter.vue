@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+const {isDarkTheme} = useDarkTheme()
+
 const countries = [
   'Africa',
   'America',
@@ -16,6 +18,18 @@ const selectText = computed(() => {
     "Filter by Region"
 })
 
+const selectDropdownClassList = computed(() => {
+  let clazz = ''
+
+  if (active.value)
+    clazz += "active "
+
+  if (isDarkTheme.value)
+    clazz += "dark-theme"
+
+  return clazz.trim()
+})
+
 function handleClick() {
   active.value = !active.value
 }
@@ -27,11 +41,11 @@ function handleSelect(region: string) {
 </script>
 
 <template>
-  <div class="select-container">
-    <div class="select-head" v-on:click="handleClick">
+  <div class="select-container" :class="isDarkTheme ? 'dark-theme' : null">
+    <div class="select-head" @click="handleClick">
       {{ selectText }} <i class="fa fa-caret-down icon"></i>
     </div>
-    <div class="select-dropdown" v-bind:class="active ? 'active' : null">
+    <div class="select-dropdown" :class="selectDropdownClassList">
       <div v-for="country in countries" :key="country" class="select-item" @click="() => handleSelect(country)">
         {{ country }}
       </div>
@@ -47,6 +61,11 @@ function handleSelect(region: string) {
   cursor: pointer;
   position: relative;
   min-width: 160px;
+}
+
+.select-container.dark-theme {
+  background: hsl(209, 23%, 22%);
+  color: white;
 }
 
 .select-head {
@@ -65,12 +84,15 @@ function handleSelect(region: string) {
   position: absolute;
   width: 100%;
   top: 110%;
-  border: 1px solid black;
   z-index: 100;
   flex-direction: column;
   text-align: center;
   font-size: 1.1rem;
   background-color: white;
+}
+
+.select-dropdown.dark-theme {
+  background: hsl(209, 23%, 22%);
 }
 
 .select-dropdown.active {
@@ -85,5 +107,9 @@ function handleSelect(region: string) {
 
 .select-dropdown .select-item:hover {
   background-color: hsl(0, 0%, 98%);
+}
+
+.select-dropdown.dark-theme .select-item:hover {
+  background-color: hsl(209, 23%, 15%);
 }
 </style>
