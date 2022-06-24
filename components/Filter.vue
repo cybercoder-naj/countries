@@ -43,7 +43,7 @@ function handleSelect(region: string) {
 </script>
 
 <template>
-  <div class="select-container" :class="isDarkTheme ? 'dark-theme' : null">
+  <div class="select-container mt-4 mt-md-0" :class="isDarkTheme ? 'dark-theme' : null">
     <div class="select-head" @click="handleClick">
       {{ selectText }} <i class="fa fa-caret-down icon"></i>
     </div>

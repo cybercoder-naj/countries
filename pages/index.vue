@@ -25,7 +25,7 @@ useHead({
 
 <template>
   <div class="container-fluid px-4 mt-5">
-    <div class="bars d-flex justify-content-between px-4">
+    <div class="sub-head px-4">
       <Search @search="handleSearch" />
       <Filter @filter="handleFilter" />
     </div>
@@ -37,3 +37,17 @@ useHead({
     </div>
   </div>
 </template>
+
+<style scoped>
+.sub-head {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .sub-head {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+</style>
