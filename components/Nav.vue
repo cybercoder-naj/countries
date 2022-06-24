@@ -4,7 +4,7 @@
 
 <template>
   <nav class="px-5 py-3" :class="isDarkTheme ? 'dark-theme' : null">
-    <h3>Where in the world?</h3>
+    <h3 data-testid="title">Where in the world?</h3>
     <div class="switcher" @click="toggleTheme">
       <i :class="isDarkTheme ? 'fa' : 'fa-regular'" class="fa-moon"></i>
       Dark Mode

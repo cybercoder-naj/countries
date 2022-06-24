@@ -13,7 +13,7 @@ watch(searchText, (newSearch, oldSearch) => {
   <div class="input-container" :class="isDarkTheme ? 'dark-theme' : null">
     <i class="fa fa-magnifying-glass icon"></i>
     <input class="input-field" type="text" placeholder="Search for a country..." v-model="searchText"
-      :class="isDarkTheme ? 'dark-theme' : null">
+      :class="isDarkTheme ? 'dark-theme' : null" data-testid="searchText">
   </div>
 </template>
 
