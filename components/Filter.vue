@@ -27,7 +27,7 @@ function handleSelect(region: string) {
 </script>
 
 <template>
-  <div class="select-container">
+  <div class="select-container mt-4 mt-md-0">
     <div class="select-head" v-on:click="handleClick">
       {{ selectText }} <i class="fa fa-caret-down icon"></i>
     </div>

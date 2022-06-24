@@ -9,11 +9,11 @@ useHead({
 
 <template>
   <div class="container-fluid px-4 mt-5">
-    <div class="bars d-flex justify-content-between px-4">
+    <div class="sub-head px-4">
       <Search />
       <Filter />
     </div>
-    <div class="row mt-4">
+    <div class="row mt-5">
       <div v-for="country in countries" class="col-12 col-md-6 col-lg-3" :key="country.name.common">
         <CountryCard :name="country.name.common" :population="country.population" :region="country.region"
           :capital="country.capital" :svgUrl="country.flags.svg" :code="country.cca2" />
@@ -21,3 +21,17 @@ useHead({
     </div>
   </div>
 </template>
+
+<style scoped>
+.sub-head {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .sub-head {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+</style>
