@@ -29,7 +29,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: [Countries](https://nuxt-countries.herokuapp.com/)
+- Live Site URL: [Countries](https://countries-cybercoder-naj.vercel.app/)
 
 ## Built with
 
