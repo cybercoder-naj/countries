@@ -8,10 +8,13 @@ const { data } = await useAsyncData(code, async () => {
   const response = (await $fetch(`https://restcountries.com/v3.1/alpha/${code}`))[0]
 
   const borders = []
-  for (let i = 0; i < response.borders.length; i++) {
-    const border = response.borders[i]
-    const borderRes = (await $fetch(`https://restcountries.com/v3/alpha/${border}`))[0]
-    borders.push(borderRes.name.common)
+
+  if (response.borders && response.borders.length) {
+    for (let i = 0; i < response.borders.length; i++) {
+      const border = response.borders[i]
+      const borderRes = (await $fetch(`https://restcountries.com/v3/alpha/${border}`))[0]
+      borders.push(borderRes.name.common)
+    }
   }
 
   return { 
@@ -91,7 +94,7 @@ const topLevelDomains = computed(() => data.value.country.tld.join(', '))
           </div>
         </div>
         <div class="col-12 col-lg-10 mt-5">
-          <p>
+          <p v-if="data.borders && data.borders.length">
             <strong>Border Countries: </strong>
             <p v-for="border in data.borders" :key="border" class="white-pill px-3 py-2 m-2" :class="isDarkTheme ? 'dark-theme' : null">{{ border }}</p>
           </p>
